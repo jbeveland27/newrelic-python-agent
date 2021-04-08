@@ -343,11 +343,13 @@ class TraceCache(object):
             _logger.error(
                 "Runtime instrumentation error. Attempt to "
                 "drop the root when it is not the current "
-                "trace. Report this issue to New Relic support.\n%s",
+                "trace. Report this issue to New Relic support.\n"
+                "Trace Cache Contents:%s\nRoot:%s\n%s",
+                str(list(self._cache.items())),
+                str(root),
                 "".join(traceback.format_stack()[:-1]),
             )
 
-            raise RuntimeError("not the current trace")
 
         del self._cache[thread_id]
         root._greenlet = None

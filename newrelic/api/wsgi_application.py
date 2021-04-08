@@ -54,6 +54,7 @@ class _WSGIApplicationIterable(object):
                 yield item
 
         except GeneratorExit:
+            _logger.debug("WSGI application exited with GeneratorExit.")
             raise
 
         except:  # Catch all

@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import gc
 import sys
 import time
 import logging
@@ -41,10 +42,12 @@ class _WSGIApplicationIterable(object):
         self.closed = False
 
     def __iter__(self):
+        gc.disable()
         self.start_trace()
 
         try:
             for item in self.generator:
+                gc.disable()
                 try:
                     self.transaction._calls_yield += 1
                     self.transaction._bytes_sent += len(item)

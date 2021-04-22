@@ -344,10 +344,11 @@ class TraceCache(object):
                 "Runtime instrumentation error. Attempt to "
                 "drop the root when it is not the current "
                 "trace. Report this issue to New Relic support.\n"
-                "Trace Cache Contents:%s\nRoot:%s\n%s",
+                "Trace Cache Contents:%s\nRoot:%s\nTraceback:%s\nGC Status:%s",
                 str(list(self._cache.items())),
                 str(root),
                 "".join(traceback.format_stack()[:-1]),
+                str(gc.isenabled()),
             )
 
 

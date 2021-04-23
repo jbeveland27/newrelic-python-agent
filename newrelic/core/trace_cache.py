@@ -16,6 +16,7 @@
 
 """
 
+import gc
 import sys
 import random
 import threading

@@ -707,8 +707,8 @@ _settings.infinite_tracing.ssl = True
 _settings.infinite_tracing.span_queue_size = _environ_as_int(
         'NEW_RELIC_INFINITE_TRACING_SPAN_QUEUE_SIZE', 10000)
 
-_settings.event_harvest_config.harvest_limits.analytic_event_data = \
-        DEFAULT_RESERVOIR_SIZE
+_settings.event_harvest_config.harvest_limits.analytic_event_data = _environ_as_int(
+        'NEW_RELIC_TRANSACTION_RESERVOIR', DEFAULT_RESERVOIR_SIZE)
 _settings.event_harvest_config.harvest_limits.custom_event_data = \
         DEFAULT_RESERVOIR_SIZE
 _settings.event_harvest_config.harvest_limits.span_event_data = \

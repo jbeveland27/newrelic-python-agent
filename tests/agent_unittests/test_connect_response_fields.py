@@ -154,3 +154,24 @@ def test_server_side_config_precedence():
             client_cls=client_cls)
 
     assert protocol.configuration.span_events.enabled is False
+
+
+@override_generic_settings(global_settings(), {
+    'developer_mode': True,
+})
+def test_span_event_harvest_config():
+    connect_response_fields = {
+        "span_event_harvest_config": {"report_period_ms": 60000, "harvest_limit": 123},
+    }
+    client_cls = functools.partial(
+            CustomTestClient,
+            connect_response_fields=connect_response_fields)
+
+    protocol = AgentProtocol.connect(
+            'app_name',
+            LINKED_APPLICATIONS,
+            ENVIRONMENT,
+            global_settings(),
+            client_cls=client_cls)
+
+    assert protocol.configuration.event_harvest_config.harvest_limits.span_event_data == 123
